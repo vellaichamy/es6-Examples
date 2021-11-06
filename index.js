@@ -1,10 +1,9 @@
 // Import stylesheets
 import './style.css';
 
-
 const PI = 3.141593;
 console.log(PI > 3.0);
-// Block-Scoped 
+// Block-Scoped
 
 let a = new Array('a', 'b', 'c');
 let b = new Array('d', 'e', 'f');
@@ -24,11 +23,11 @@ for (let i = 0; i < b.length; i++) {
 console.log(`Array x:`, JSON.stringify(x));
 console.log(`Array y:`, JSON.stringify(y));
 
-let callbacks = []
+let callbacks = [];
 for (let i = 0; i <= 2; i++) {
-  callbacks[i] = function() {
+  callbacks[i] = function () {
     return i * 2;
-  }
+  };
 }
 console.log(`Compare callback[0] === 0:`, callbacks[0]() === 0);
 console.log(`Compare callback[1] === 2:`, callbacks[1]() === 2);
@@ -56,10 +55,10 @@ console.log(`Compare foo() === 1:`, foo() === 1);
 
 let evens = new Array(1, 2, 3);
 
-let odds = evens.map(v => v + 1);
-let pairs = evens.map(v => ({
+let odds = evens.map((v) => v + 1);
+let pairs = evens.map((v) => ({
   even: v,
-  odd: v + 1
+  odd: v + 1,
 }));
 let nums = evens.map((v, i) => v + i);
 
@@ -69,13 +68,12 @@ console.log(`Array nums:`, JSON.stringify(nums));
 
 // ========= Statement ==================
 
-console.clear();
+// console.clear();
 let nums01 = new Array(2, 5, 3, 6, 8, 4, 5, 1, 5);
 let fives = new Array();
 
-nums01.forEach(v => {
-  if (v % 5 === 0)
-    fives.push(v);
+nums01.forEach((v) => {
+  if (v % 5 === 0) fives.push(v);
 });
 
 console.log(`Array fives:`, JSON.stringify(fives));
@@ -83,21 +81,76 @@ console.log(`Array fives:`, JSON.stringify(fives));
 let example = {
   nums: [2, 5, 3, 6, 8, 4, 5, 1, 5],
   fives: [],
-  getFives: function() {
+  getFives: function () {
     this.nums.forEach((v) => {
-      if (v % 5 === 0)
-        this.fives.push(v);
-      });
-  }
-}
+      if (v % 5 === 0) this.fives.push(v);
+    });
+  },
+};
 
 example.getFives();
 
 console.log(`Array example.nums:`, JSON.stringify(example.fives));
+// Default Parameter ==================
+function function1(x, y = 7, z = 42) {
+  return x + y + z;
+}
+console.log(`Compare function1() === 50:`, function1(1) === 50);
+
+// Rest Parameter ==========================
+
+let a01 = new Array(1, 2, 3, 4, 5);
+
+function function2(x, y, ...a01) {
+  return (x + y) * a.length;
+}
+console.log(
+  `Compare function2() === 9:`,
+  function2(1, 2, 'hello', true, 7) === 9
+);
+
+// Spread Operator ======================
+
+function function2(x, y, ...a) {
+  return (x + y) * a.length;
+}
+
+let params = ['hello', true, 7];
+console.log(`Compare function2() === 9:`, function2(1, 2, ...params) === 9);
+let other = [1, 2, ...params];
+console.log(`Array other:`, JSON.stringify(other));
+
+let str = 'foo';
+let chars = [...str];
+console.log(`Array chars:`, JSON.stringify(chars));
+
+// Template Literals ====== String Interpolation =
+console.clear();
+
+let customer = {
+  name: 'Foo',
+};
+
+let card = {
+  amount: 7,
+  product: 'Bar',
+  unitprice: 42,
+};
+
+let message = `Hello ${customer.name},
+want to buy ${card.amount} ${card.product} for
+a total of ${card.amount * card.unitprice} bucks?`;
+
+console.log(`Value message:`, message);
+
+// Custom Interpolation ==================
 
 const appDiv = document.getElementById('app');
-appDiv.innerHTML = `<h1>ES6 ES7 Examples</h1> 
+appDiv.innerHTML =
+  `<h1>ES6 ES7 Examples</h1> 
 
 <br> Block-Scoped <br>
-` +`Array x:`+ JSON.stringify(x) +
-`<br> <h3>Block-Scoped Functions</h3>` ;
+` +
+  `Array x:` +
+  JSON.stringify(x) +
+  `<br> <h3>Block-Scoped Functions</h3>`;
