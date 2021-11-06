@@ -125,7 +125,7 @@ let chars = [...str];
 console.log(`Array chars:`, JSON.stringify(chars));
 
 // Template Literals ====== String Interpolation =
-console.clear();
+// console.clear();
 
 let customer = {
   name: 'Foo',
@@ -144,7 +144,65 @@ a total of ${card.amount * card.unitprice} bucks?`;
 console.log(`Value message:`, message);
 
 // Custom Interpolation ==================
+function get(array, param1, param2) {
+  console.log(`Value params get():`, JSON.stringify(array), param1, param2);
+  let url = `${array[0]}${param1}${array[1]}${param2}`;
+  console.log(`Value url:`, url);
+}
 
+let bar = `Hello`;
+let baz = `Ugra`;
+let asd = `Rithu`;
+
+get`http://example.com/foo?bar=${bar + baz}&param =${asd}`;
+
+// Raw String Access
+
+function quux(strings, ...values) {
+  console.log(`Compare strings[0] === "foo\\n":`, strings[0] === 'foo\n');
+  console.log(`Compare strings[1] === "bar":`, strings[1] === 'bar');
+  console.log(`Compare values[0] === 42:`, values[0] === 42);
+  console.log(
+    `Compare strings.raw[0] === "foo\\\\n":`,
+    strings.raw[0] === 'foo\\n'
+  );
+  console.log(`Compare strings.raw[1] === "bar":`, strings.raw[1] === 'bar');
+}
+quux`foo\n${42}bar`;
+
+console.log(`Compare String.war:`, String.raw`foo\n${42}bar` === 'foo\\n42bar');
+
+// Binary & Octal Literal ==================
+
+console.log(`Compare binary 0b111110111 === 503:`, 0b111110111 === 503);
+console.log(`Compare octal 0o767 === 503:`, 0o767 === 503);
+
+// Property Shorthand =====================
+console.clear();
+let x01 = 1;
+let y01 = 2;
+
+let obj = {
+  x01,
+  y01,
+};
+
+console.log(`Value obj:`, JSON.stringify(obj));
+
+// Computed Property ===================
+
+let q01 = () => ` foo`;
+
+let obj2 = {
+  foo: 'bar',
+  ['baz' + q01()]: 42,
+};
+
+console.log(`Value obj2:`, JSON.stringify(obj2));
+
+// Method Properties ==================
+
+// =========== End ==========================
 const appDiv = document.getElementById('app');
 appDiv.innerHTML =
   `<h1>ES6 ES7 Examples</h1> 
