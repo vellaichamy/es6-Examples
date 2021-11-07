@@ -209,12 +209,12 @@ let obj3 = {
   bar(x, y) {
     x * y;
   },
-  * q03(x, y) {
+  *q03(x, y) {
     x + y;
-  }
-  };
-  
-  console.log(`Value obj3:`, obj3);
+  },
+};
+
+console.log(`Value obj3:`, obj3);
 
 // Destructuring  ====================
 console.clear();
@@ -229,10 +229,10 @@ console.log(`Value b3:`, b3);
 // ============================================
 
 function getASTNode() {
-  return {op: 1, lhs: 2, rhs: 3};
-};
+  return { op: 1, lhs: 2, rhs: 3 };
+}
 
-var {op, lhs, rhs} = getASTNode();
+var { op, lhs, rhs } = getASTNode();
 
 console.log(`Value op:`, op);
 console.log(`Value lhs:`, lhs);
@@ -241,10 +241,14 @@ console.log(`Value rhs:`, rhs);
 // =====================================
 
 function getASTNode2() {
-  return {op: 1, lhs: {op: 2}, rhs: 3};
-};
+  return { op: 1, lhs: { op: 2 }, rhs: 3 };
+}
 
-var {op: a4, lhs: {op: b4}, rhs: c4} = getASTNode2();
+var {
+  op: a4,
+  lhs: { op: b4 },
+  rhs: c4,
+} = getASTNode2();
 
 console.log(`Value a:`, a4);
 console.log(`Value b:`, b4);
@@ -254,17 +258,17 @@ function f([name, val]) {
   console.log(name, val);
 }
 
-function g({name: n, val: v}) {
+function g({ name: n, val: v }) {
   console.log(n, v);
 }
 
-function h({name, val}) {
+function h({ name, val }) {
   console.log(name, val);
 }
 
-f(["bar", 42]);
-g({name: "foo", val: 7});
-h({name: "bar", val: 42});
+f(['bar', 42]);
+g({ name: 'foo', val: 7 });
+h({ name: 'bar', val: 42 });
 // ============================
 var list = [7, 42];
 var [a5 = 1, b5 = 2, c5 = 3, d5] = list;
@@ -288,7 +292,7 @@ class Shape {
   getPos() {
     return {
       x: this.x,
-      y: this.y
+      y: this.y,
     };
   }
 }
@@ -354,7 +358,7 @@ class Rectangle01 {
   get area() {
     return this._width * this._height;
   }
-};
+}
 
 var r = new Rectangle01(50, 20);
 console.log(`Compare rectangle.area === 1000:`, r.area === 1000);
@@ -363,7 +367,10 @@ console.log(`Compare rectangle.area === 1000:`, r.area === 1000);
 // console.clear();
 
 console.log(`Symbol("foo03"):`, Symbol('foo03'));
-console.log(`Symbol("foo03") !== Symbol("foo03"):`, Symbol("foo03") !== Symbol("foo03"));
+console.log(
+  `Symbol("foo03") !== Symbol("foo03"):`,
+  Symbol('foo03') !== Symbol('foo03')
+);
 
 const foo03 = Symbol();
 const bar03 = Symbol();
@@ -371,12 +378,18 @@ console.log(`typeof foo03 === "symbol":`, typeof foo03 === 'symbol');
 console.log(`typeof bar03 === "symbol":`, typeof bar03 === 'symbol');
 
 let obj03 = {};
-obj03[foo03] = "foo03";
-obj03[bar03] = "bar03";
+obj03[foo03] = 'foo03';
+obj03[bar03] = 'bar03';
 console.log(`Value obj03:`, JSON.stringify(obj03));
 console.log(`Value Object.keys(obj03):`, Object.keys(obj03));
-console.log(`Value Object.getOwnPropertyNames(obj03):`, Object.getOwnPropertyNames(obj03));
-console.log(`Value Object.getOwnPropertySymbols(obj03):`, Object.getOwnPropertySymbols(obj03));
+console.log(
+  `Value Object.getOwnPropertyNames(obj03):`,
+  Object.getOwnPropertyNames(obj03)
+);
+console.log(
+  `Value Object.getOwnPropertySymbols(obj03):`,
+  Object.getOwnPropertySymbols(obj03)
+);
 console.log(`Value obj03["foo03"]:`, obj03['foo03']);
 console.log(`Value obj03[foo03]:`, obj03[foo03]);
 //  Map/Set & WeakMap/WeakSet =========
@@ -418,12 +431,12 @@ let foo05 = new Node('foo05');
 
 console.log(`Value foo05:`, JSON.stringify(foo05));
 foo05.mark();
-foo05.data = "bar";
+foo05.data = 'bar';
 console.log(`foo05.data === "data":`, foo05.data === 'bar');
 console.log(`Value foo05:`, JSON.stringify(foo05));
-console.log(`foo05 isMarked:`,isMarked.has(foo05));
+console.log(`foo05 isMarked:`, isMarked.has(foo05));
 console.log(`attached data foo05:`, attachedData.has(foo05));
-foo05 = null /* remove only reference to foo05 */
+foo05 = null; /* remove only reference to foo05 */
 console.log(`attached data foo05:`, attachedData.has(foo05));
 console.log(`foo05 isMarked:`, isMarked.has(foo05));
 
@@ -436,11 +449,11 @@ function msgAfterTimeout(msg, who, timeout) {
   });
 }
 
-msgAfterTimeout('', 'Foo', 100).then((msg) =>
-  msgAfterTimeout(msg, 'Bar', 200)
-).then((msg) => {
-  console.log(`Response promise after 300ms:`, msg);
-});
+msgAfterTimeout('', 'Foo', 100)
+  .then((msg) => msgAfterTimeout(msg, 'Bar', 200))
+  .then((msg) => {
+    console.log(`Response promise after 300ms:`, msg);
+  });
 
 // ===================
 
@@ -448,33 +461,36 @@ let fetchPromised = (name, timeout) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve(`Hi ${name}`), timeout);
   });
-}
+};
 
 Promise.all([
   fetchPromised('Foo', 1000),
   fetchPromised('Bar', 500),
-  fetchPromised('Baz', 200)
-]).then((data) => {
-  let [foo, bar, baz] = data;
-  console.log(`Response all promises: foo=${foo} bar=${bar} baz=${baz}`);
-}, (err) => {
-  console.log(`Error: ${err}`);
-});
+  fetchPromised('Baz', 200),
+]).then(
+  (data) => {
+    let [foo, bar, baz] = data;
+    console.log(`Response all promises: foo=${foo} bar=${bar} baz=${baz}`);
+  },
+  (err) => {
+    console.log(`Error: ${err}`);
+  }
+);
 
 // Reflection ============================
 let obj06 = {
-  a: 1
+  a: 1,
 };
-Object.defineProperty(obj06, "b", {
-  value: 2
+Object.defineProperty(obj06, 'b', {
+  value: 2,
 });
-obj06[Symbol("c")] = 3;
+obj06[Symbol('c')] = 3;
 console.log(`Reflect.ownKeys(obj06):`, Reflect.ownKeys(obj06));
 
 // =========== End ==========================
 const appDiv = document.getElementById('app');
 appDiv.innerHTML =
-  `<h1>ES6 ES7 Examples</h1> 
+  `<h1>ES6 Examples</h1> 
 
 <br> Block-Scoped <br>
 ` +
