@@ -216,6 +216,90 @@ let obj3 = {
   
   console.log(`Value obj3:`, obj3);
 
+// Destructuring  ====================
+console.clear();
+var list = [1, 2, 3];
+var [a3, , b3] = list;
+console.log(`Value a3:`, a3);
+console.log(`Value b3:`, b3);
+
+[b3, a3] = [a3, b3];
+console.log(`Value a3:`, a3);
+console.log(`Value b3:`, b3);
+// ============================================
+
+function getASTNode() {
+  return {op: 1, lhs: 2, rhs: 3};
+};
+
+var {op, lhs, rhs} = getASTNode();
+
+console.log(`Value op:`, op);
+console.log(`Value lhs:`, lhs);
+console.log(`Value rhs:`, rhs);
+
+// =====================================
+
+function getASTNode2() {
+  return {op: 1, lhs: {op: 2}, rhs: 3};
+};
+
+var {op: a4, lhs: {op: b4}, rhs: c4} = getASTNode2();
+
+console.log(`Value a:`, a4);
+console.log(`Value b:`, b4);
+console.log(`Value c:`, c4);
+// ======================
+function f([name, val]) {
+  console.log(name, val);
+}
+
+function g({name: n, val: v}) {
+  console.log(n, v);
+}
+
+function h({name, val}) {
+  console.log(name, val);
+}
+
+f(["bar", 42]);
+g({name: "foo", val: 7});
+h({name: "bar", val: 42});
+// ============================
+var list = [7, 42];
+var [a5 = 1, b5 = 2, c5 = 3, d5] = list;
+console.log(`Compare a5 === 7:`, a5 === 7);
+console.log(`Compare b5 === 42:`, b5 === 42);
+console.log(`Compare c5 === 3:`, c5 === 3);
+console.log(`Compare d5 === undefined:`, d5 === undefined);
+
+// Classes ===========================
+console.clear();
+
+class Shape {
+  constructor(id, x, y) {
+    this.id = id;
+    this.move(x, y);
+  }
+  move(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  getPos() {
+    return {
+      x: this.x,
+      y: this.y
+    };
+  }
+}
+
+let shape = new Shape(1, 10, 20);
+console.log(`Shape pos:`, JSON.stringify(shape.getPos()));
+shape.move(15, 35);
+console.log(`Shape pos:`, JSON.stringify(shape.getPos()));
+
+// =====================================
+
 
 
 
