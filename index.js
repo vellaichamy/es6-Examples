@@ -487,6 +487,63 @@ Object.defineProperty(obj06, 'b', {
 obj06[Symbol('c')] = 3;
 console.log(`Reflect.ownKeys(obj06):`, Reflect.ownKeys(obj06));
 
+
+// ==========================
+console.clear();
+//Promises
+
+const delay01 = seconds => {
+  return new Promise(resolve => {
+      setTimeout(resolve, seconds * 1000)
+  });
+};
+
+console.log("Zero seconds wait");
+delay01(1).then(() => console.log('One seconds wait'));
+delay01(5).then(() => console.log('Five seconds wait'));
+
+// Loading data with fetch()
+
+const getPeopleInSpace = () =>
+  fetch('http://api.open-notify.org/astros.json')
+      .then(res => res.json());
+
+getPeopleInSpace()
+  .then(console.log);
+
+//Async() and await()
+
+const delay = seconds => {
+  return new Promise(
+      resolve => setTimeout(resolve, seconds * 1000)
+  )
+};
+
+const countToFive = async() => {
+  console.log('zero seconds wait countToFive');
+  await delay(2);
+  console.log('Two seconds wait countToFive');
+  await delay(5);
+  console.log('Five seconds wait countToFive');
+}
+
+countToFive();
+
+//04. Async with fetch
+
+const githubRequest = async(loginName) => {
+  try{
+      var response = await fetch(`http://api.github.com/users/${loginName}/followers`);
+      var json = await response.json();
+      var followerList = json.map(user => user.login);
+      console.log(followerList);
+  } catch(e){
+      console.log("Data didn't load", e);
+  }
+};
+
+//githubRequest('eveporcello');
+githubRequest('pradeepkumar2');
 // =========== End ==========================
 const appDiv = document.getElementById('app');
 appDiv.innerHTML =
