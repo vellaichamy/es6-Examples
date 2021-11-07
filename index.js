@@ -202,6 +202,23 @@ console.log(`Value obj2:`, JSON.stringify(obj2));
 
 // Method Properties ==================
 
+let obj3 = {
+  foo(a, b) {
+    a + b;
+  },
+  bar(x, y) {
+    x * y;
+  },
+  * q03(x, y) {
+    x + y;
+  }
+  };
+  
+  console.log(`Value obj3:`, obj3);
+
+
+
+
 // =========== End ==========================
 const appDiv = document.getElementById('app');
 appDiv.innerHTML =
