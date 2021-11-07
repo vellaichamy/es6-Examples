@@ -529,7 +529,7 @@ const countToFive = async() => {
 
 countToFive();
 
-//04. Async with fetch
+// Async with fetch
 
 const githubRequest = async(loginName) => {
   try{
@@ -543,7 +543,8 @@ const githubRequest = async(loginName) => {
 };
 
 //githubRequest('eveporcello');
-githubRequest('pradeepkumar2');
+githubRequest('Ugrasenan \
+');
 // =========== End ==========================
 const appDiv = document.getElementById('app');
 appDiv.innerHTML =
