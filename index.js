@@ -359,6 +359,118 @@ class Rectangle01 {
 var r = new Rectangle01(50, 20);
 console.log(`Compare rectangle.area === 1000:`, r.area === 1000);
 
+// Symbol Type ===========================
+// console.clear();
+
+console.log(`Symbol("foo03"):`, Symbol('foo03'));
+console.log(`Symbol("foo03") !== Symbol("foo03"):`, Symbol("foo03") !== Symbol("foo03"));
+
+const foo03 = Symbol();
+const bar03 = Symbol();
+console.log(`typeof foo03 === "symbol":`, typeof foo03 === 'symbol');
+console.log(`typeof bar03 === "symbol":`, typeof bar03 === 'symbol');
+
+let obj03 = {};
+obj03[foo03] = "foo03";
+obj03[bar03] = "bar03";
+console.log(`Value obj03:`, JSON.stringify(obj03));
+console.log(`Value Object.keys(obj03):`, Object.keys(obj03));
+console.log(`Value Object.getOwnPropertyNames(obj03):`, Object.getOwnPropertyNames(obj03));
+console.log(`Value Object.getOwnPropertySymbols(obj03):`, Object.getOwnPropertySymbols(obj03));
+console.log(`Value obj03["foo03"]:`, obj03['foo03']);
+console.log(`Value obj03[foo03]:`, obj03[foo03]);
+//  Map/Set & WeakMap/WeakSet =========
+console.clear();
+
+let s = new Set();
+s.add('hello').add('goodbye').add('hello');
+console.log(`s.size === 2:`, s.size === 2);
+console.log(`s.has("hello"):`, s.has('hello') === true);
+for (let key of s.values()) {
+  console.log(`Data s:`, key);
+}
+// ==========================
+let isMarked = new WeakSet();
+let attachedData = new WeakMap();
+
+class Node {
+  constructor(id) {
+    this.id = id;
+  }
+  mark() {
+    isMarked.add(this);
+  }
+  unmark() {
+    isMarked.delete(this);
+  }
+  marked() {
+    return isMarked.has(this);
+  }
+  set data(data) {
+    attachedData.set(this, data);
+  }
+  get data() {
+    return attachedData.get(this);
+  }
+}
+
+let foo05 = new Node('foo05');
+
+console.log(`Value foo05:`, JSON.stringify(foo05));
+foo05.mark();
+foo05.data = "bar";
+console.log(`foo05.data === "data":`, foo05.data === 'bar');
+console.log(`Value foo05:`, JSON.stringify(foo05));
+console.log(`foo05 isMarked:`,isMarked.has(foo05));
+console.log(`attached data foo05:`, attachedData.has(foo05));
+foo05 = null /* remove only reference to foo05 */
+console.log(`attached data foo05:`, attachedData.has(foo05));
+console.log(`foo05 isMarked:`, isMarked.has(foo05));
+
+// Promise  ===========================
+console.clear();
+
+function msgAfterTimeout(msg, who, timeout) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(`${msg} Hello ${who}!`), timeout);
+  });
+}
+
+msgAfterTimeout('', 'Foo', 100).then((msg) =>
+  msgAfterTimeout(msg, 'Bar', 200)
+).then((msg) => {
+  console.log(`Response promise after 300ms:`, msg);
+});
+
+// ===================
+
+let fetchPromised = (name, timeout) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve(`Hi ${name}`), timeout);
+  });
+}
+
+Promise.all([
+  fetchPromised('Foo', 1000),
+  fetchPromised('Bar', 500),
+  fetchPromised('Baz', 200)
+]).then((data) => {
+  let [foo, bar, baz] = data;
+  console.log(`Response all promises: foo=${foo} bar=${bar} baz=${baz}`);
+}, (err) => {
+  console.log(`Error: ${err}`);
+});
+
+// Reflection ============================
+let obj06 = {
+  a: 1
+};
+Object.defineProperty(obj06, "b", {
+  value: 2
+});
+obj06[Symbol("c")] = 3;
+console.log(`Reflect.ownKeys(obj06):`, Reflect.ownKeys(obj06));
+
 // =========== End ==========================
 const appDiv = document.getElementById('app');
 appDiv.innerHTML =
