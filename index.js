@@ -299,9 +299,65 @@ shape.move(15, 35);
 console.log(`Shape pos:`, JSON.stringify(shape.getPos()));
 
 // =====================================
+class Shape01 {
+  constructor(id, x, y) {
+    this.id = id;
+    this.x = x;
+    this.y = y;
+  }
+  toString() {
+    return `Shape01(${this.id})`;
+  }
+}
+class Rectangle extends Shape01 {
+  constructor(id, x, y, width, height) {
+    super(id, x, y);
+  }
+  toString() {
+    return `Rectangle > ${super.toString()}`;
+  }
+}
+class Circle extends Shape01 {
+  constructor(id, x, y, radius) {
+    super(id, x, y);
+  }
+  toString() {
+    return `Circle > ${super.toString()}`;
+  }
+}
 
+let Shape001 = new Shape01(1, 10, 20);
+console.log(Shape001.toString());
+let rectangle = new Rectangle(2, 20, 30);
+console.log(rectangle.toString());
+let circle = new Circle(3, 30, 40);
+console.log(circle.toString());
 
+// Getter/Setter ==========================
+class Rectangle01 {
+  constructor(width, height) {
+    this._width = width;
+    this._height = height;
+  }
+  set width(width) {
+    this._width = width;
+  }
+  get width() {
+    return this._width;
+  }
+  set height(height) {
+    this._height = height;
+  }
+  get height() {
+    return this._height;
+  }
+  get area() {
+    return this._width * this._height;
+  }
+};
 
+var r = new Rectangle01(50, 20);
+console.log(`Compare rectangle.area === 1000:`, r.area === 1000);
 
 // =========== End ==========================
 const appDiv = document.getElementById('app');
